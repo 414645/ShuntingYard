@@ -1,5 +1,5 @@
 #include <iostream>
-#include "node.cpp"
+#include "node.h"
 
 using namespace std;
 

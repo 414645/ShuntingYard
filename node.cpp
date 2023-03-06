@@ -10,8 +10,8 @@ Node::Node() {
 Node::Node(char newThing) {
   cout << newThing << " node created" << endl;
 }
-
+/*
 Node::~Node() {
   cout << "node destroyed" << endl;
 }
-
+*/
