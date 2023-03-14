@@ -11,7 +11,7 @@ Node::Node() {
 }
 
 Node::Node(char newThing) {
-  cout << newThing << " node created" << endl;
+  //cout << newThing << " node created" << endl;
   rightNode = NULL;
   leftNode = NULL;
   thing = newThing;
