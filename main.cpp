@@ -18,16 +18,15 @@ char deque(Node* &head, Node* current, Node* previous);
 
 int main() {
   cout << "hello world" << endl;
-  //using the same node class for all since I don't want to create anohter
+  //using the same node class for all since I don't want to create another
   Node* stackOne = NULL;
   Node* queueOne = NULL;
 
 
   cout << "Input a mathematical expresion" << endl;
   cout << "Only use single diget integers, +, -, *, /, ^ (, and )." << endl;
-  char a = ')';
 
-  //until we get a invalid input let the user add dumbers
+  //until we get a invalid input let the user add numbers
   bool quit = false;
   while(quit == false) {
     char temp = ' ';
@@ -41,8 +40,16 @@ int main() {
        (int)temp == 41 || //)
       ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
-      //add the number to stack1
-      enque(stackOne, stackOne, nodify);
+      //SHUNTING YARD ALGORITHEM HERE
+      //if its a number
+      if ((int)temp > 47 && (int)temp < 58) {
+	push(stackOne, stackOne, nodify);
+      }
+      //if its an operation
+      else {
+	
+      }
+      //enque(stackOne, stackOne, nodify);
     }
     else if (temp == ' ') {
       quit = true;
@@ -53,8 +60,10 @@ int main() {
     }
   }
   cout << "done" << endl;
+  cout << "stack1" << endl;
   printLinear(stackOne);
-  //time for shuntingyard part of programm
+  cout << "qeueue1" << endl;
+  printLinear(queueOne);
 }
 void printLinear (Node* current) {
   if (current != NULL) {
@@ -124,8 +133,8 @@ char deque(Node* &head, Node* current, Node* previous) {
     return ' ';
   }
   else {
-    return head;
-    head = head->getRight;
+    return head->getThing();
+    head = head->getRight();
     delete head;
   }
 }
