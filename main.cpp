@@ -20,6 +20,7 @@ int main() {
   cout << "hello world" << endl;
   //using the same node class for all since I don't want to create anohter
   Node* stackOne = NULL;
+  Node* queueOne = NULL;
 
 
   cout << "Input a mathematical expresion" << endl;
@@ -41,7 +42,7 @@ int main() {
       ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
       //add the number to stack1
-      push(stackOne, stackOne, nodify);
+      enque(stackOne, stackOne, nodify);
     }
     else if (temp == ' ') {
       quit = true;
@@ -52,6 +53,7 @@ int main() {
     }
   }
   cout << "done" << endl;
+  printLinear(stackOne);
   //time for shuntingyard part of programm
 }
 void printLinear (Node* current) {
@@ -121,13 +123,10 @@ char deque(Node* &head, Node* current, Node* previous) {
     if (head == NULL) {
     return ' ';
   }
-  else if (current->getRight() == NULL) {
-    return current->getThing();
-    previous->setRight(NULL);
-    delete current;
-  }
   else {
-    return pop(head, current->getRight(), current);
+    return head;
+    head = head->getRight;
+    delete head;
   }
 }
 
