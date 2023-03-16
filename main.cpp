@@ -38,18 +38,69 @@ int main() {
        (int)temp == 94 || //^
        (int)temp == 40 || //(
        (int)temp == 41 || //)
-      ((int)temp > 47 && (int)temp < 58)) { //num
+       ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
       //SHUNTING YARD ALGORITHEM HERE
       //if its a number
       if ((int)temp > 47 && (int)temp < 58) {
-	push(stackOne, stackOne, nodify);
+        enque(queueOne, queueOne, nodify);
       }
       //if its an operation
       else {
-	
+	bool tempthing = true;
+	while(tempthing == true) {
+	  if (temp == '(') {
+	    push(stackOne, stackOne, nodify);
+	    tempthing = false;
+	  }
+	  if (temp == ')') {
+	    cout << "not odne yet" << endl;
+	    //not quite true, pop until peek is a ( then to once more
+	    pop(stackOne, stackOne, NULL);
+	    tempthing = false;
+	  }
+	  //find precidence
+	  int precidence = 0;
+	  int myPre;
+	  char pre = peek(stackOne, stackOne, NULL);
+	  if (pre == '(') {
+	    precidence = 4;
+	  }
+	  if (pre == '^') {
+	    precidence = 3;
+	  }
+	  if (pre == '*' || pre == '/') {
+	    precidence = 2;
+	  }
+	  if (pre == '+' || pre == '-' ) {
+	    precidence = 1;
+	  }
+	  if (temp == '^') {
+	    myPre = 3;
+	  }
+	  if (temp == '*' || pre == '/') {
+	    myPre = 2;
+	  }
+	  if (temp == '+' || pre == '-' ) {
+	    myPre = 1;
+	  }
+	  //if myprecidence is smaller
+	  cout << "myPree:" << myPre << "  pre:" << precidence << endl;
+	  if (myPre <= precidence) {
+	    char thing = pop(stackOne, stackOne, NULL);
+	    Node* newNode = new Node(thing);
+	    enque(queueOne, queueOne, newNode);
+	    printLinear(queueOne);
+
+	  }
+	  else {
+	    //add me to stack
+	    push(stackOne, stackOne, nodify);
+	    tempthing = false;
+	  }
+	}
       }
-      //enque(stackOne, stackOne, nodify);
+      
     }
     else if (temp == ' ') {
       quit = true;
