@@ -64,7 +64,9 @@ int main() {
 	  //find precidence
 	  int precidence = 0;
 	  int myPre;
+	  //cout << "findpree" << endl;
 	  char pre = peek(stackOne, stackOne, NULL);
+	  //cout << "?" << endl;
 	  if (pre == '(') {
 	    precidence = 4;
 	  }
@@ -88,15 +90,21 @@ int main() {
 	  }
 	  //if myprecidence is smaller
 	  cout << "myPree:" << myPre << "  pre:" << precidence << endl;
-	  if (myPre < precidence) {
+	  if (myPre <= precidence) {
+	    cout << "pop thing" << endl;
 	    char thing = pop(stackOne, stackOne, NULL);
+	    cout << "new node" << endl;
+	    cout << "thing:" << thing << endl;;
 	    Node* newNode = new Node(thing);
+	    cout << "hello" << endl;
 	    enque(queueOne, queueOne, newNode);
+	    cout << "print" << endl;
 	    //printLinear(queueOne);
 
 	  }
 	  else {
 	    //add me to stack
+	    cout << "add to stack" << endl;
 	    push(stackOne, stackOne, nodify);
 	    tempthing = false;
 	  }
@@ -148,7 +156,10 @@ char pop(Node* &head, Node* current, Node* previous) {
   }
   else if (current->getRight() == NULL) {
     int a = current->getThing();
-    previous->setRight(NULL);
+    cout << "hello" << endl;
+    if (previous != NULL) {
+      previous->setRight(NULL);
+    }
     cout << "delete current pop" << endl;
     delete current;
     return a;
