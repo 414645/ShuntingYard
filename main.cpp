@@ -99,7 +99,7 @@ int main() {
 	    //cout << "hello" << endl;
 	    enque(queueOne, queueOne, newNode);
 	    cout << "print" << endl;
-	    printLinear(queueOne);
+	    //printLinear(queueOne);
 	    cout << "done Print" << endl;
 
 	  }
@@ -134,7 +134,7 @@ void printLinear (Node* current) {
     printLinear(current->getRight());
   }
   else {
-    cout << "current = null" << endl;
+    //cout << "current = null" << endl;
   }
 }
 
@@ -145,7 +145,9 @@ void push(Node* &head, Node* current, Node* newNode) {
   }
   else if (current->getRight() == NULL) {
     current->setRight(newNode);
-    //cout << "added" << endl;
+    cout << "printstack" << endl;
+    //printLinear(head);
+    //exit(1);
   }
   else {
     push(head, current->getRight(), newNode);
@@ -160,10 +162,10 @@ char pop(Node* &head, Node* current, Node* previous) {
     int a = current->getThing();
     if (previous != NULL) {
       previous->setRight(NULL);
-      cout << "!!!" << endl;
+      //cout << "!!!" << endl;
     }
     else {
-      printLinear(head);
+      //printLinear(head);
     }
     cout << "delete current pop" << endl;
     delete current;
@@ -193,23 +195,19 @@ char peek(Node* &head, Node* current, Node* previous) {
 //queue
 
 void enque(Node* &head, Node* current,  Node* newNode) {
+  //cout << "enque" << endl;
   if (head == NULL) {
     head = newNode;
   }
   else if (current->getRight() == NULL) {
+    //cout << "enqueed" << endl;
     current->setRight(newNode);
+    cout << "print queue" << endl;
+    printLinear(head);
   }
   else {
     push(head, current->getRight(), newNode);
   }
-  
-  /*if (head == NULL) {
-    head = newNode;
-  }
-  else {
-    newNode->setRight(current);
-    head = newNode;
-    }*/
 }
 
 char deque(Node* &head, Node* current, Node* previous) {
