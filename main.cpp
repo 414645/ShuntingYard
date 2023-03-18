@@ -31,6 +31,7 @@ int main() {
   while(quit == false) {
     char temp = ' ';
     cin >> temp;
+    //only take in operators + numbers
     if((int)temp == 43 || //+
        (int)temp == 45 || //-
        (int)temp == 42 || //*
@@ -43,6 +44,7 @@ int main() {
       //SHUNTING YARD ALGORITHEM HERE
       //if its a number
       if ((int)temp > 47 && (int)temp < 58) {
+	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
       }
       //if its an operation
@@ -145,9 +147,10 @@ char pop(Node* &head, Node* current, Node* previous) {
     return ' ';
   }
   else if (current->getRight() == NULL) {
-    return current->getThing();
-    previous->setRight(NULL);
+    int a = current->getThing();
+    //previous->setRight(NULL);
     delete current;
+    return a;
   }
   else {
     return pop(head, current->getRight(), current);
@@ -160,10 +163,13 @@ char peek(Node* &head, Node* current, Node* previous) {
   }
   else if (current->getRight() == NULL) {
     return current->getThing();
-    //previous->setRight(NULL);
+    //if (previous == NULL) {
+    //  cout <<  "this should be an impossible situation";
+    //}
+    previous->setRight(NULL);
   }
   else {
-    return pop(head, current->getRight(), current);
+    return peek(head, current->getRight(), current);
   }
 }
 
@@ -173,10 +179,20 @@ void enque(Node* &head, Node* current,  Node* newNode) {
   if (head == NULL) {
     head = newNode;
   }
+  else if (current->getRight() == NULL) {
+    current->setRight(newNode);
+  }
+  else {
+    push(head, current->getRight(), newNode);
+  }
+  
+  /*if (head == NULL) {
+    head = newNode;
+  }
   else {
     newNode->setRight(current);
     head = newNode;
-  }
+    }*/
 }
 
 char deque(Node* &head, Node* current, Node* previous) {
