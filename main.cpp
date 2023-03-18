@@ -94,12 +94,13 @@ int main() {
 	    cout << "pop thing" << endl;
 	    char thing = pop(stackOne, stackOne, NULL);
 	    cout << "new node" << endl;
-	    cout << "thing:" << thing << endl;;
+	    //cout << "thing:" << thing << endl;;
 	    Node* newNode = new Node(thing);
-	    cout << "hello" << endl;
+	    //cout << "hello" << endl;
 	    enque(queueOne, queueOne, newNode);
 	    cout << "print" << endl;
-	    //printLinear(queueOne);
+	    printLinear(queueOne);
+	    cout << "done Print" << endl;
 
 	  }
 	  else {
@@ -144,6 +145,7 @@ void push(Node* &head, Node* current, Node* newNode) {
   }
   else if (current->getRight() == NULL) {
     current->setRight(newNode);
+    //cout << "added" << endl;
   }
   else {
     push(head, current->getRight(), newNode);
@@ -156,9 +158,12 @@ char pop(Node* &head, Node* current, Node* previous) {
   }
   else if (current->getRight() == NULL) {
     int a = current->getThing();
-    cout << "hello" << endl;
     if (previous != NULL) {
       previous->setRight(NULL);
+      cout << "!!!" << endl;
+    }
+    else {
+      printLinear(head);
     }
     cout << "delete current pop" << endl;
     delete current;
