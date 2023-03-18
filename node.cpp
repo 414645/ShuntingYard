@@ -18,7 +18,7 @@ Node::Node(char newThing) {
 }
 
 Node::~Node() {
-  cout << "node destroyed" << endl;
+  //cout << "node destroyed" << endl;
 }
 Node* Node::getRight() {
   return rightNode;

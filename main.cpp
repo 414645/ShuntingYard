@@ -88,11 +88,11 @@ int main() {
 	  }
 	  //if myprecidence is smaller
 	  cout << "myPree:" << myPre << "  pre:" << precidence << endl;
-	  if (myPre <= precidence) {
+	  if (myPre < precidence) {
 	    char thing = pop(stackOne, stackOne, NULL);
 	    Node* newNode = new Node(thing);
 	    enque(queueOne, queueOne, newNode);
-	    printLinear(queueOne);
+	    //printLinear(queueOne);
 
 	  }
 	  else {
