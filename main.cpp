@@ -148,7 +148,8 @@ char pop(Node* &head, Node* current, Node* previous) {
   }
   else if (current->getRight() == NULL) {
     int a = current->getThing();
-    //previous->setRight(NULL);
+    previous->setRight(NULL);
+    cout << "delete current pop" << endl;
     delete current;
     return a;
   }
@@ -163,10 +164,10 @@ char peek(Node* &head, Node* current, Node* previous) {
   }
   else if (current->getRight() == NULL) {
     return current->getThing();
-    //if (previous == NULL) {
-    //  cout <<  "this should be an impossible situation";
-    //}
-    previous->setRight(NULL);
+    if (previous == NULL) {
+      cout <<  "this should be an impossible situation";
+    }
+    //previous->setRight(NULL);
   }
   else {
     return peek(head, current->getRight(), current);
@@ -200,6 +201,7 @@ char deque(Node* &head, Node* current, Node* previous) {
     return ' ';
   }
   else {
+    cout << "flawed" << endl;
     return head->getThing();
     head = head->getRight();
     delete head;
