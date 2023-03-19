@@ -350,11 +350,41 @@ void infix(Node* tree) {
       cout << ")";
     }
   }
-}		      
-void postfix(Node* tree) {
-  
 }
+
+//go left until null
+//then backup
+//then go right until null
+//then backup and print me
+void postfix(Node* tree) {
+  //I guess the this way is postfix
+  //I still dont know what postfix is so I can't explain
+  if (tree != NULL) {
+    //print left
+    postfix(tree->getLeft());
+    //print right
+    postfix(tree->getRight());
+    //print me
+    cout << tree->getThing();
+    
+  }
+}
+
+//this code will print the thing
+//then go to the left
+//then the left will print and so on
+//once the left is null it backs up one and prints right
 void prefix(Node* tree) {
+  //this goes through thte tree in basicy the oppisite order of postfix
+  //meadniig operators end up first
+  if (tree != NULL) {
+    //print me
+    cout << tree->getThing();
+    //print left
+    prefix(tree->getLeft());
+    //print right
+    prefix(tree->getRight());
+  }
   
 }
 
