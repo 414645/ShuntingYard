@@ -99,8 +99,12 @@ int main() {
 	  if (myPre <= precidence) {
 	    //get move the top thing in the stack to the queue
 
+	    cout << "before";
+	    printLinear(stackOne);
 	    char thing = pop(stackOne, stackOne, NULL);
 	    cout << "thing: " << thing << endl;
+	    cout << "after";
+	    printLinear(stackOne);
 	    Node* newNode = new Node(thing);
 	    cout << "newNode: " << newNode << endl;
 	    enque(queueOne, queueOne, newNode);
@@ -158,12 +162,17 @@ void printLinear (Node* current) {
 
 //stack
 void push(Node* &head, Node* current, Node* newNode) {
-  //an exit so ^c is not needed if something goes wrong with input that is not caught
+  //an exit so ^c is not needed if something goes
+  //wrong with input that is not caught in the if
   if (current == newNode) {
-    cout << "There was an unexped error, please check that your input was correct" << endl;
-    //return;
+    cout << "There was an unexped error, ";
+    cout << "please check that your input was correct" << endl;
     exit(1);
   }
+
+  //normal stack code
+  //if head is null relace it
+  //otherwise go throught until next is NULL and make next me
   if (head == NULL) {
     head = newNode;
     //should be null aready but does not hurt to make sure
@@ -173,9 +182,9 @@ void push(Node* &head, Node* current, Node* newNode) {
     if (current != newNode) {
       current->setRight(newNode);
     }
-    else {
-      return;
-    }
+    //else {
+    //  return;
+    //}
     cout << current << ", " << current->getRight() << endl;
     cout << "printstack" << endl;
     if (global < 1) {
@@ -190,28 +199,45 @@ void push(Node* &head, Node* current, Node* newNode) {
     global++;
   }
   else {
+    //recursion to go though the list
     push(head, current->getRight(), newNode);
   }
 }
 
+//return the value of last thing in the stack (+ delete it)
 char pop(Node* &head, Node* current, Node* previous) {
+  //if it is empty return ' '
   if (head == NULL) {
     return ' ';
   }
+  else if (head->getRight() == NULL) {
+    //if the head is only thing in list
+    //save the thing to return as int
+    int a = head->getThing();
+    delete current;
+    head = NULL;
+    return a;
+  }
+  //if we are at the end of the list
   else if (current->getRight() == NULL) {
+    //save the thing to retun as int
     int a = current->getThing();
+    //set previous to point to NULL
     if (previous != NULL) {
       previous->setRight(NULL);
-      //cout << "!!!" << endl;
+      cout << "!!!" << endl;
     }
     else {
       //printLinear(head);
     }
+
+    //delete the current node and return
     cout << "delete current pop" << endl;
     delete current;
     return a;
   }
   else {
+    //go though the list since we are not at the end
     return pop(head, current->getRight(), current);
   }
 }
