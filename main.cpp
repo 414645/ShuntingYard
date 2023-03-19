@@ -19,6 +19,8 @@ int global = 0;
 void push(Node* &head, Node* current,  Node* newNode);
 char pop(Node* &head, Node* current, Node* previous);
 char peek(Node* &head, Node* current, Node* previous);
+//for binary tree (same as pop but returns a node vs char)
+Node* popNode(Node* &head, Node* current, Node* previous);
 //Queue (fifo) same idea
 void enque(Node* &head, Node* current,  Node* newNode);
 char deque(Node* &head, Node* current, Node* previous);
@@ -361,3 +363,34 @@ char deque(Node* &head, Node* current, Node* previous) {
 }
 
 						     
+//stack but nodes
+//pop node insead of char
+Node* popNode(Node* &head, Node* current, Node* previous) {
+  //if it is empty return ' '
+  if (head == NULL) {
+    //NULL not ' '
+    return NULL;
+  }
+  else if (head->getRight() == NULL) {
+    //no needto save head = current at this point
+    head = NULL;
+    return current;
+  }
+  //if we are at the end of the list
+  else if (current->getRight() == NULL) {
+    //exact code as above -cout
+    if (previous != NULL) {
+      previous->setRight(NULL);
+    }
+    else {
+      //printLinear(head);
+    }
+
+    //return insead of deleting
+    return current;
+  }
+  else {
+    //go though the list since we are not at the end
+    return popNode(head, current->getRight(), current);
+  }
+}
