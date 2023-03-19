@@ -123,36 +123,19 @@ int main() {
 	  if (myPre <= precidence) {
 	    //get move the top thing in the stack to the queue
 
-	    cout << "before";
-	    printLinear(stackOne);
 	    char thing = pop(stackOne, stackOne, NULL);
-	    cout << "thing: " << thing << endl;
-	    cout << "after";
-	    printLinear(stackOne);
+	    //cout << "thing: " << thing << endl;
 	    Node* newNode = new Node(thing);
-	    cout << "newNode: " << newNode << endl;
+	    //cout << "newNode: " << newNode << endl;
 	    enque(queueOne, queueOne, newNode);
-	    cout << "enqued newnode" << endl;
+	    //cout << "enqued newnode" << endl;
 	    
-	    
-	    /*cout << "pop thing" << endl;
-	    char thing = pop(stackOne, stackOne, NULL);
-	    cout << "new node" << endl;
-	    //cout << "thing:" << thing << endl;;
-	    Node* newNode = new Node(thing);
-	    //cout << "hello" << endl;
-	    enque(queueOne, queueOne, newNode);
-	    //cout << "print" << endl;
-	    //printLinear(queueOne);
-	    //cout << "done Print" << endl;
-	    */
-	    
-
 	  }
 	  else {
 	    //add me to stack
 	    cout << "add to stack" << endl;
 	    push(stackOne, stackOne, nodify);
+	    //and we have handeled the operation
 	    tempthing = false;
 	  }
 	}
@@ -167,11 +150,46 @@ int main() {
       quit = true;
     }
   }
-  cout << "done" << endl;
+  //shunting yard is almost done
+  //now the rest of the stack needs to go to the queue
+
+  //some prints to make sure it was working correctly
+  /*
   cout << "stack1" << endl;
   printLinear(stackOne);
   cout << "qeueue1" << endl;
   printLinear(queueOne);
+  */
+
+  //loop until stack1 head = null
+  bool whileLoop = true;
+  while (whileLoop == true) {
+    //if it is not empty move
+    if (peek(stackOne, stackOne, NULL) != ' ') {
+      //move the top thing in the stack to the queue
+      
+      char thing = pop(stackOne, stackOne, NULL);
+      //cout << "thing: " << thing << endl;
+      Node* newNode = new Node(thing);
+      //cout << "newNode: " << newNode << endl;
+      enque(queueOne, queueOne, newNode);
+      //cout << "enqued newnode" << endl;
+	    
+    }
+    else {
+      //we are done
+      whileLoop = false;
+    }
+  }
+  //shuntingyard is officialy done!
+  //Now move the queue to a binary tree
+  cout << "stack1" << endl;
+  printLinear(stackOne);
+  cout << "qeueue1" << endl;
+  printLinear(queueOne);
+
+  
+  
 }
 void printLinear (Node* current) {
   if (current != NULL) {
