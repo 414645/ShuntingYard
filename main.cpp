@@ -61,9 +61,15 @@ int main() {
       Node* nodify = new Node(temp);
       //SHUNTING YARD ALGORITHEM STARTS HERE
 
+      cout << "queue: " << endl;
+      printLinear(queueOne);
+      cout << "stack: " << endl;
+      printLinear(stackOne);
+      
       //if its a number
       if (((int)temp > 47) && ((int)temp < 58)) {
 	cout << "number -> queue" << endl;
+	//exit(1);
 	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
 	cout << "68 enque:  " << (int)temp << endl;;
@@ -77,8 +83,8 @@ int main() {
 	while(tempthing == true) {
 	  cout << "d: " << d << endl;
 	  d++;
-	  if (d > 10) {
-	    //exit(1);
+	  if (d > 50) {
+	    exit(1);
 	  }
 	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
@@ -141,10 +147,10 @@ int main() {
 	  if (temp == '^') {
 	    myPre = 3;
 	  }
-	  if (temp == '*' || pre == '/') {
+	  if ((temp == '*') || (temp == '/')) {
 	    myPre = 2;
 	  }
-	  if (temp == '+' || pre == '-' ) {
+	    if ((temp == '+') || (temp  == '-')) {
 	    myPre = 1;
 	  }
 	  //if myprecidence is smaller then the thing is stack
