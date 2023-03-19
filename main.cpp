@@ -24,6 +24,10 @@ Node* popNode(Node* &head, Node* current, Node* previous);
 //Queue (fifo) same idea
 void enque(Node* &head, Node* current,  Node* newNode);
 char deque(Node* &head, Node* current, Node* previous);
+//prints form binary tree
+void infix(Node* tree);
+void postfix(Node* tree);
+void prefix(Node* tree);
 
 int main() {
   //cout << "hello world" << endl;
@@ -265,9 +269,9 @@ int main() {
       //we are done with the list
       time = false;
 
-      //couts for testing
-      //cout << "hi" << endl;
-      //tree = popNode(stackTwo, stackTwo, NULL);
+      //the last node in the stack contails the root of the tree
+      //go assign it to tree
+      tree = popNode(stackTwo, stackTwo, NULL); 
       //cout << "root: " << tree->getThing() << endl;
     }
   }
@@ -282,18 +286,80 @@ int main() {
   if (input == 1) {
     //infix
     cout << "Your final expression is: " << endl;
+    infix(tree);
+    cout << endl;
   }
   else if (input == 2) {
     //prefix
     cout << "Your final expression is: " << endl;
+    prefix(tree);
+    cout << endl;
   }
   else if (input == 3) {
     //postfix
     cout << "Your final expression is: " << endl;
+    postfix(tree);
+    cout << endl;
   }
-  
+
+  //we are done with this nightmare of a program
+  cout << "Thank you CalConT for having a infix to postfix converter" << endl;
+  cout << "https://calcont.in/Conversion/infix_to_postfix" << endl;
+
+}
+//prints for the above thing are below
+//they are here since recursion is the easyist way to do it
+
+//also I don't quite get Prefix or Postfix
+//so this is me turning psudocode on
+//en.wikipdiea.org/wiki/Binary/expression_tree into actual code
+//so this is as accurate as wikipidea
+
+//anyways this is the end of my main funciton
+//go look up https: wikipedia.org/wiki/Shuntin_yard_algorithm to see
+//what I treid to make since I have no clue
+//There is a infix to postix converter on
+//https://www.calcon.in/Conversion/infix_to_postfix
+//That is what I think happens
+//I just kept working unti my shunting yard gave me that
+
+//anyways back to the prints for final cout in main
+void infix(Node* tree) {
+  //things have to be enclosed in parenthsies
+  if(tree != NULL) {
+    //if operator print (
+    if(tree->getThing() == '^' ||
+       tree->getThing() == '*' ||
+       tree->getThing() == '/' ||
+       tree->getThing() == '+' ||
+       tree->getThing() == '-' ) {
+      cout << "(";
+    }
+    //print left
+    infix(tree->getLeft());
+    //print operator
+    cout << tree->getThing();
+    //print right
+    infix(tree->getRight());
+    //if operator close )
+    if(tree->getThing() == '^' ||
+       tree->getThing() == '*' ||
+       tree->getThing() == '/' ||
+       tree->getThing() == '+' ||
+       tree->getThing() == '-' ) {
+      cout << ")";
+    }
+  }
+}		      
+void postfix(Node* tree) {
   
 }
+void prefix(Node* tree) {
+  
+}
+
+//this goes throught the right nodes to print a linear linked list
+//entire thing is for bugtesting
 void printLinear (Node* current) {
   if (current != NULL) {
     //cout << current << endl;
