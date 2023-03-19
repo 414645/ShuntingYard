@@ -188,6 +188,25 @@ int main() {
   cout << "qeueue1" << endl;
   printLinear(queueOne);
 
+  //to turn postfix into a binary tree
+  //move the queue into a stack and anytime an operator is added it is the
+  //root of a "tree" and then the root is added to the stack
+
+  bool time = true;
+  while (time == true) {
+    char b = deque(queueOne, queueOne, NULL);
+    cout << "b: " << b << endl;
+    if (b != ' ') {
+      //we are still in the list
+      
+      
+    }
+    else {
+      //we are done with the list
+      time = false;
+    }
+  }
+
   
   
 }
@@ -301,17 +320,17 @@ char peek(Node* &head, Node* current, Node* previous) {
 }
 
 //queue
-
 void enque(Node* &head, Node* current,  Node* newNode) {
-  //cout << "enque" << endl;
   if (head == NULL) {
     head = newNode;
   }
   else if (current->getRight() == NULL) {
-    //cout << "enqueed" << endl;
+    //if the next node is NULL make the next node me
     current->setRight(newNode);
-    cout << "print queue" << endl;
-    printLinear(head);
+
+    //prints so I can see what is happening
+    //cout << "print queue" << endl;
+    //printLinear(head);
   }
   else {
     push(head, current->getRight(), newNode);
@@ -319,14 +338,15 @@ void enque(Node* &head, Node* current,  Node* newNode) {
 }
 
 char deque(Node* &head, Node* current, Node* previous) {
-    if (head == NULL) {
+  if (head == NULL) {
+    //if there is nothing return ' '
     return ' ';
   }
   else {
-    cout << "flawed" << endl;
-    return head->getThing();
+    //otherwise save thing to return and overwrite head
+    char temp = head->getThing();
     head = head->getRight();
-    delete head;
+    return temp;
   }
 }
 
