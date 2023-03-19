@@ -238,12 +238,25 @@ int main() {
 	cout << "operator: " << op->getThing() << endl;
 
 	//ifs since the tree doens not necairly have two children
+	//viulisation that exists since I was returnin node not thing
+	/*
 	if (op->getRight() != NULL) {
-	  cout << "right: " << op->getRight()->getNode() << endl;
+	  cout << "right: " << op->getRight()->getThing() << endl;
 	}
 	if (op->getLeft() != NULL) {
-	  cout << "left: " << op->getLeft()->getNode() << endl;
+	  cout << "left: " << op->getLeft()->getThing() << endl;
 	}
+	*/
+
+	//op now needs to get added back to the stack
+	//think about it like we jsut did something in ()
+	//so the result must be replaced to keep going
+
+	//create a node holding it
+	Node* temporary = new Node(op);
+	//push that node
+	push(stackTwo, stackTwo, temporary);
+	
       }
       
       
@@ -253,7 +266,7 @@ int main() {
       time = false;
 
       //couts for testing
-      cout << "hi" << endl;
+      //cout << "hi" << endl;
       //tree = popNode(stackTwo, stackTwo, NULL);
       //cout << "root: " << tree->getThing() << endl;
     }
@@ -264,7 +277,20 @@ int main() {
   cout << "1 infix" << endl;
   cout << "2 prefix" << endl;
   cout << "3 postfix" << endl;
-  
+  int input;
+  cin >> input;
+  if (input == 1) {
+    //infix
+    cout << "Your final expression is: " << endl;
+  }
+  else if (input == 2) {
+    //prefix
+    cout << "Your final expression is: " << endl;
+  }
+  else if (input == 3) {
+    //postfix
+    cout << "Your final expression is: " << endl;
+  }
   
   
 }
