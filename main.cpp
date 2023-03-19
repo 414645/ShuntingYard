@@ -194,16 +194,27 @@ int main() {
   //move the queue into a stack and anytime an operator is added it is the
   //root of a "tree" and then the root is added to the stack
 
+  //storage of things until they go into tree
+  Node* stackTwo = NULL;
+  //tree
+  Node* tree = NULL;
+
+  //while loop to go though queue
   bool time = true;
   while (time == true) {
     char b = deque(queueOne, queueOne, NULL);
     cout << "b: " << b << endl;
     if (b != ' ') {
-      //we are still in the list
-      //if b is a non number move it to stack2
-
-      //else pop top two from stack 2 to deal with
-      //stack of nodes would be nice
+      //we are still in the queue
+      //so check if its  a number
+      if ((int)b > 47 && (int)b < 58) {
+	//if so add it to stack2
+	Node* newNode = new Node(b);
+	push(stackTwo, stackTwo, newNode);
+      }
+      else {
+	//pop node twice and shove root back into stack
+      }
       
       
     }
@@ -213,6 +224,12 @@ int main() {
     }
   }
 
+  //ask what way they want to cout notation
+  cout << "Would you like to output the expresision as:" << endl;
+  cout << "1 infix" << endl;
+  cout << "2 prefix" << endl;
+  cout << "3 postfix" << endl;
+  
   
   
 }
