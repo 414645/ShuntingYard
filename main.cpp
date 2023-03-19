@@ -44,6 +44,7 @@ int main() {
        ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
       //SHUNTING YARD ALGORITHEM HERE
+
       //if its a number
       if ((int)temp > 47 && (int)temp < 58) {
 	cout << "number -> queue" << endl;
@@ -52,24 +53,26 @@ int main() {
       }
       //if its an operation
       else {
+	//start a loop until we have handeled the operation
 	bool tempthing = true;
 	while(tempthing == true) {
+	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
 	    push(stackOne, stackOne, nodify);
 	    tempthing = false;
 	  }
+	  //if it is a ) get rid of stack to queue until ( then delte (
 	  if (temp == ')') {
 	    cout << "not done yet" << endl;
 	    //not quite true, pop until peek is a ( then to once more
 	    pop(stackOne, stackOne, NULL);
 	    tempthing = false;
 	  }
-	  //find precidence
+	  
+	  //find the precidence of operators
 	  int precidence = 0;
 	  int myPre;
-	  //cout << "findpree" << endl;
 	  char pre = peek(stackOne, stackOne, NULL);
-	  //cout << "?" << endl;
 	  if (pre == '(') {
 	    precidence = 4;
 	  }
@@ -91,10 +94,20 @@ int main() {
 	  if (temp == '+' || pre == '-' ) {
 	    myPre = 1;
 	  }
-	  //if myprecidence is smaller
+	  //if myprecidence is smaller then the thing is stack
 	  cout << "myPree:" << myPre << "  pre:" << precidence << endl;
 	  if (myPre <= precidence) {
-	    cout << "pop thing" << endl;
+	    //get move the top thing in the stack to the queue
+
+	    char thing = pop(stackOne, stackOne, NULL);
+	    cout << "thing: " << thing << endl;
+	    Node* newNode = new Node(thing);
+	    cout << "newNode: " << newNode << endl;
+	    enque(queueOne, queueOne, newNode);
+	    cout << "enqued newnode" << endl;
+	    
+	    
+	    /*cout << "pop thing" << endl;
 	    char thing = pop(stackOne, stackOne, NULL);
 	    cout << "new node" << endl;
 	    //cout << "thing:" << thing << endl;;
@@ -104,6 +117,8 @@ int main() {
 	    //cout << "print" << endl;
 	    //printLinear(queueOne);
 	    //cout << "done Print" << endl;
+	    */
+	    
 
 	  }
 	  else {
