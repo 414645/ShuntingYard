@@ -62,10 +62,12 @@ int main() {
       //SHUNTING YARD ALGORITHEM STARTS HERE
 
       //if its a number
-      if ((int)temp > 47 && (int)temp < 58) {
+      if (((int)temp > 47) && ((int)temp < 58)) {
 	cout << "number -> queue" << endl;
 	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
+	cout << "68 enque:  " << (int)temp << endl;;
+	printLinear(queueOne);
       }
       //if its an operation
       else {
@@ -76,7 +78,7 @@ int main() {
 	  cout << "d: " << d << endl;
 	  d++;
 	  if (d > 10) {
-	    exit(1);
+	    //exit(1);
 	  }
 	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
@@ -85,7 +87,7 @@ int main() {
 	    tempthing = false;
 	  }
 	  //if it is a ) get rid of stack to queue until ( then delte (
-	  if (temp == ')') {
+	  else if (temp == ')') {
 	    cout << "not done yet" << endl;
 	    bool endless = true;
 	    int c = 0;
@@ -95,10 +97,7 @@ int main() {
 		cout << "peek: " << peek(stackOne, stackOne, NULL) << endl;
 		cout << c << endl;
 		c++;
-		d++;
-		if (d > 10) {
-		  exit(1);
-		}
+		
 		//if it is not ( send it to queue
 		//names are a little wierd since I don't know what to
 		//call them since temp is used aready
@@ -107,6 +106,7 @@ int main() {
 		if (uniqueName != ' ') {
 		  Node* newNodeNumberQuestionMark = new Node(uniqueName);
 		  enque(queueOne, queueOne, newNodeNumberQuestionMark);
+		  cout << "109 enque:  " << uniqueName<< endl;;
 		}
 	      }
 	      else {
@@ -118,14 +118,14 @@ int main() {
 	    //we have handeled it
 	    tempthing = false;
 	  }
-	  
+	  else {
 	  //find the precidence of operators
 	  int precidence = 0;
 	  int myPre = 0;
 	  char pre = peek(stackOne, stackOne, NULL);
-	  if (pre == '(') {
-	    precidence = 4;
-	  }
+	  //if (pre == '(') {
+	  //  precidence = 4;
+	  //}
 	  if (pre == '^') {
 	    precidence = 3;
 	  }
@@ -134,6 +134,9 @@ int main() {
 	  }
 	  if (pre == '+' || pre == '-' ) {
 	    precidence = 1;
+	  }
+	  if (temp == '(') {
+	    myPre = 4;
 	  }
 	  if (temp == '^') {
 	    myPre = 3;
@@ -150,19 +153,23 @@ int main() {
 	    //get move the top thing in the stack to the queue
 
 	    char thing = pop(stackOne, stackOne, NULL);
-	    //cout << "thing: " << thing << endl;
+	    cout << "thing: " << thing << endl;
 	    Node* newNode = new Node(thing);
-	    //cout << "newNode: " << newNode << endl;
+	    cout << "newNode: " << newNode << endl;
 	    enque(queueOne, queueOne, newNode);
-	    //cout << "enqued newnode" << endl;
+	    cout << "156 enque:  " << thing << endl;;
+	    cout << "enqued newnode" << endl;
 	    
 	  }
 	  else {
 	    //add me to stack
 	    cout << "add to stack" << endl;
+	    printLinear(stackOne);
+	    cout << "nodify" << nodify->getThing() << endl;
 	    push(stackOne, stackOne, nodify);
 	    //and we have handeled the operation
 	    tempthing = false;
+	  }
 	  }
 	}
       }
