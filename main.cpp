@@ -8,6 +8,8 @@ using namespace std;
 
 void printLinear (Node* current);
 
+int global = 0;
+
 //Stack (lifo) is built with the idea if it works it works (right path)
 void push(Node* &head, Node* current,  Node* newNode);
 char pop(Node* &head, Node* current, Node* previous);
@@ -44,6 +46,7 @@ int main() {
       //SHUNTING YARD ALGORITHEM HERE
       //if its a number
       if ((int)temp > 47 && (int)temp < 58) {
+	cout << "number -> queue" << endl;
 	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
       }
@@ -56,7 +59,7 @@ int main() {
 	    tempthing = false;
 	  }
 	  if (temp == ')') {
-	    cout << "not odne yet" << endl;
+	    cout << "not done yet" << endl;
 	    //not quite true, pop until peek is a ( then to once more
 	    pop(stackOne, stackOne, NULL);
 	    tempthing = false;
@@ -98,9 +101,9 @@ int main() {
 	    Node* newNode = new Node(thing);
 	    //cout << "hello" << endl;
 	    enque(queueOne, queueOne, newNode);
-	    cout << "print" << endl;
+	    //cout << "print" << endl;
 	    //printLinear(queueOne);
-	    cout << "done Print" << endl;
+	    //cout << "done Print" << endl;
 
 	  }
 	  else {
@@ -146,8 +149,16 @@ void push(Node* &head, Node* current, Node* newNode) {
   else if (current->getRight() == NULL) {
     current->setRight(newNode);
     cout << "printstack" << endl;
-    //printLinear(head);
+    if (global < 1) {
+      printLinear(head);
+    }
+    else {
+      cout << "noprint" << endl;
+    }
+    //if (global > -1) {
     //exit(1);
+    //}
+    global++;
   }
   else {
     push(head, current->getRight(), newNode);
