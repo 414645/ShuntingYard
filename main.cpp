@@ -5,9 +5,14 @@ using namespace std;
 
 //shunting yard programm
 //Ryan Veith
+//I did not want to write another node class so singe lists use the
+//right side of node
 
+//printLiner goes though a linked list and cout (right side)
 void printLinear (Node* current);
 
+//used for testing since this was coded using the 1 million monkeys stratgy
+//delete if have free time to clean up couts
 int global = 0;
 
 //Stack (lifo) is built with the idea if it works it works (right path)
@@ -19,21 +24,24 @@ void enque(Node* &head, Node* current,  Node* newNode);
 char deque(Node* &head, Node* current, Node* previous);
 
 int main() {
-  cout << "hello world" << endl;
-  //using the same node class for all since I don't want to create another
+  //cout << "hello world" << endl;
+  //using the same node class as said above
   Node* stackOne = NULL;
   Node* queueOne = NULL;
 
-
   cout << "Input a mathematical expresion" << endl;
   cout << "Only use single diget integers, +, -, *, /, ^ (, and )." << endl;
-
+  cout << "enter S when done to start the shunting yard program" << endl;
+  
   //until we get a invalid input let the user add numbers
+  //cin breaks on spaces so it is easy
   bool quit = false;
   while(quit == false) {
     char temp = ' ';
     cin >> temp;
     //only take in operators + numbers
+    //yes I realize in retrospect that
+    //if temp == '+' would have been easier
     if((int)temp == 43 || //+
        (int)temp == 45 || //-
        (int)temp == 42 || //*
@@ -43,7 +51,7 @@ int main() {
        (int)temp == 41 || //)
        ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
-      //SHUNTING YARD ALGORITHEM HERE
+      //SHUNTING YARD ALGORITHEM STARTS HERE
 
       //if its a number
       if ((int)temp > 47 && (int)temp < 58) {
@@ -59,13 +67,29 @@ int main() {
 	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
 	    push(stackOne, stackOne, nodify);
+	    //we have handled it
 	    tempthing = false;
 	  }
 	  //if it is a ) get rid of stack to queue until ( then delte (
 	  if (temp == ')') {
 	    cout << "not done yet" << endl;
-	    //not quite true, pop until peek is a ( then to once more
-	    pop(stackOne, stackOne, NULL);
+	    bool endless = true;
+	    while(endless == true) {
+	      if (peek(stackOne, stackOne, NULL) != '(') {
+		//if it is not ( send it to queue
+		//names are a little wierd since I don't know what to
+		//call them since temp is used aready
+		char uniqueName = pop(stackOne, stackOne, NULL);
+		Node* newNodeNumberQuestionMark = new Node(uniqueName);
+		enque(queueOne, queueOne, newNodeNumberQuestionMark);
+	      }
+	      else {
+		//get rid of ( and exit while
+		pop(stackOne, stackOne, NULL);
+		endless = false;
+	      }
+	    }
+	    //we have handeled it
 	    tempthing = false;
 	  }
 	  
