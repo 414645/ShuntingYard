@@ -42,7 +42,9 @@ int main() {
   //until we get a invalid input let the user add numbers
   //cin breaks on spaces so it is easy
   bool quit = false;
+  int d = 0;
   while(quit == false) {
+    cout << "hello" << endl;
     char temp = ' ';
     cin >> temp;
     //only take in operators + numbers
@@ -69,7 +71,13 @@ int main() {
       else {
 	//start a loop until we have handeled the operation
 	bool tempthing = true;
+	//int d = 0;
 	while(tempthing == true) {
+	  cout << "d: " << d << endl;
+	  d++;
+	  if (d > 10) {
+	    exit(1);
+	  }
 	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
 	    push(stackOne, stackOne, nodify);
@@ -81,7 +89,15 @@ int main() {
 	    cout << "not done yet" << endl;
 	    bool endless = true;
 	    while(endless == true) {
-	      if (peek(stackOne, stackOne, NULL) != '(') {
+	      int c = 0;
+	      if (peek(stackOne, stackOne, NULL) != '(' && c < 10) {
+		cout << "peek: " << peek(stackOne, stackOne, NULL) << endl;
+		cout << c << endl;
+		c++;
+		d++;
+		if (d > 10) {
+		  exit(1);
+		}
 		//if it is not ( send it to queue
 		//names are a little wierd since I don't know what to
 		//call them since temp is used aready
@@ -101,7 +117,7 @@ int main() {
 	  
 	  //find the precidence of operators
 	  int precidence = 0;
-	  int myPre;
+	  int myPre = 0;
 	  char pre = peek(stackOne, stackOne, NULL);
 	  if (pre == '(') {
 	    precidence = 4;
