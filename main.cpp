@@ -214,6 +214,20 @@ int main() {
       }
       else {
 	//pop node twice and shove root back into stack
+	//for a,b. b is first pop as is second since fifo
+	Node* bNode = popNode(stackTwo, stackTwo, NULL);
+	Node* aNode = popNode(stackTwo, stackTwo, NULL);
+	//my creatvity for names is horrible
+	//anyways the operator is the root of two numbers in binary tree
+	//so this does that
+
+	//(a or b could be a function too)
+	//so node was rewored to be able to hold a node too
+	//and getNode get that node so we now have the fuciton as a or b
+	Node* op = new Node(b);
+        op->setRight(bNode);
+	op->setLeft(aNode);
+	cout << "operator: " << op->getThing() << endl;
       }
       
       
