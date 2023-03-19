@@ -143,11 +143,25 @@ void printLinear (Node* current) {
 
 //stack
 void push(Node* &head, Node* current, Node* newNode) {
+  //an exit so ^c is not needed if something goes wrong with input that is not caught
+  if (current == newNode) {
+    cout << "There was an unexped error, please check that your input was correct" << endl;
+    //return;
+    exit(1);
+  }
   if (head == NULL) {
     head = newNode;
+    //should be null aready but does not hurt to make sure
+    newNode->setRight(NULL);
   }
   else if (current->getRight() == NULL) {
-    current->setRight(newNode);
+    if (current != newNode) {
+      current->setRight(newNode);
+    }
+    else {
+      return;
+    }
+    cout << current << ", " << current->getRight() << endl;
     cout << "printstack" << endl;
     if (global < 1) {
       printLinear(head);
