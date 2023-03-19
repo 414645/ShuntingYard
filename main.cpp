@@ -198,6 +198,10 @@ int main() {
     cout << "b: " << b << endl;
     if (b != ' ') {
       //we are still in the list
+      //if b is a non number move it to stack2
+
+      //else pop top two from stack 2 to deal with
+      //stack of nodes would be nice
       
       
     }
@@ -225,6 +229,8 @@ void printLinear (Node* current) {
 void push(Node* &head, Node* current, Node* newNode) {
   //an exit so ^c is not needed if something goes
   //wrong with input that is not caught in the if
+  //this should not be possible but... yeah
+  //1*10^6 monkey's and inf time = shake spear
   if (current == newNode) {
     cout << "There was an unexped error, ";
     cout << "please check that your input was correct" << endl;
@@ -240,12 +246,14 @@ void push(Node* &head, Node* current, Node* newNode) {
     newNode->setRight(NULL);
   }
   else if (current->getRight() == NULL) {
+    //this if was added since I managed to mess up shuntingyard so much
+    //that it would send the same node twice somehow
+    //agian milion monkey and typwriters
     if (current != newNode) {
+      //if the next node is null make the next node me:
       current->setRight(newNode);
     }
-    //else {
-    //  return;
-    //}
+    //bug testing not needed (global variable definily not needed)
     cout << current << ", " << current->getRight() << endl;
     cout << "printstack" << endl;
     if (global < 1) {
@@ -258,6 +266,8 @@ void push(Node* &head, Node* current, Node* newNode) {
     //exit(1);
     //}
     global++;
+
+    //end of not needed
   }
   else {
     //recursion to go though the list
