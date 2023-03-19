@@ -8,6 +8,7 @@ Node::Node() {
   rightNode = NULL;
   leftNode = NULL;
   thing = '0';
+  myNode = NULL;
 }
 
 Node::Node(char newThing) {
@@ -15,6 +16,12 @@ Node::Node(char newThing) {
   rightNode = NULL;
   leftNode = NULL;
   thing = newThing;
+}
+
+Node::Node(Node* newThing) {
+  rightNode = NULL;
+  leftNode = NULL;
+  myNode = newThing;
 }
 
 Node::~Node() {
@@ -35,5 +42,9 @@ void Node::setLeft(Node* newLeft) {
 char Node::getThing() {
   return thing;
 }
+Node* Node::getNode() {
+  return myNode;
+}
+
 
 

@@ -195,6 +195,10 @@ int main() {
   //root of a "tree" and then the root is added to the stack
 
   //storage of things until they go into tree
+  //it will store nodes istead of chars since it needs to be able to
+  //store the roots of smaller trees
+  //the final one will be asigned to tree
+  //since it is then the root of all trees
   Node* stackTwo = NULL;
   //tree
   Node* tree = NULL;
@@ -208,9 +212,13 @@ int main() {
       //we are still in the queue
       //so check if its  a number
       if ((int)b > 47 && (int)b < 58) {
-	//if so add it to stack2
+	//make it into a node
 	Node* newNode = new Node(b);
-	push(stackTwo, stackTwo, newNode);
+	//create a node(for the stack)  holding that node (for the tree)
+	Node* nodeNew = new Node(newNode);
+	//add it to stack2 (since this will be a
+	//part of a the tree we want nodes not chars
+	push(stackTwo, stackTwo, nodeNew);
       }
       else {
 	//pop node twice and shove root back into stack
@@ -228,6 +236,14 @@ int main() {
         op->setRight(bNode);
 	op->setLeft(aNode);
 	cout << "operator: " << op->getThing() << endl;
+
+	//ifs since the tree doens not necairly have two children
+	if (op->getRight() != NULL) {
+	  cout << "right: " << op->getRight()->getNode() << endl;
+	}
+	if (op->getLeft() != NULL) {
+	  cout << "left: " << op->getLeft()->getNode() << endl;
+	}
       }
       
       
@@ -235,6 +251,11 @@ int main() {
     else {
       //we are done with the list
       time = false;
+
+      //couts for testing
+      cout << "hi" << endl;
+      //tree = popNode(stackTwo, stackTwo, NULL);
+      //cout << "root: " << tree->getThing() << endl;
     }
   }
 
@@ -395,7 +416,32 @@ char deque(Node* &head, Node* current, Node* previous) {
 
 						     
 //stack but nodes
-//pop node insead of char
+//this is the exact code as pop but using a node as return insead of char
+Node* popNode(Node* &head, Node* current, Node* previous) {
+  //if it is empty return ' '
+  if (head == NULL) {
+    return NULL;
+  }
+  else if (head->getRight() == NULL) {
+    Node* a = head->getNode();
+    delete current;
+    head = NULL;
+    return a;
+  }
+  else if (current->getRight() == NULL) {
+    Node* a = current->getNode();
+    if (previous != NULL) {
+      previous->setRight(NULL);
+    }
+    delete current;
+    return a;
+  }
+  else {
+    return popNode(head, current->getRight(), current);
+  }
+}
+
+/*
 Node* popNode(Node* &head, Node* current, Node* previous) {
   //if it is empty return ' '
   if (head == NULL) {
@@ -425,3 +471,4 @@ Node* popNode(Node* &head, Node* current, Node* previous) {
     return popNode(head, current->getRight(), current);
   }
 }
+*/
