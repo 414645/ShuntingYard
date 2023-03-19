@@ -44,7 +44,6 @@ int main() {
   bool quit = false;
   int d = 0;
   while(quit == false) {
-    cout << "hello" << endl;
     char temp = ' ';
     cin >> temp;
     //only take in operators + numbers
@@ -60,32 +59,19 @@ int main() {
        ((int)temp > 47 && (int)temp < 58)) { //num
       Node* nodify = new Node(temp);
       //SHUNTING YARD ALGORITHEM STARTS HERE
-
-      cout << "queue: " << endl;
-      printLinear(queueOne);
-      cout << "stack: " << endl;
-      printLinear(stackOne);
       
       //if its a number
       if (((int)temp > 47) && ((int)temp < 58)) {
-	cout << "number -> queue" << endl;
-	//exit(1);
+	//cout << "number -> queue" << endl;
 	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
-	cout << "68 enque:  " << (int)temp << endl;;
 	printLinear(queueOne);
       }
       //if its an operation
       else {
 	//start a loop until we have handeled the operation
 	bool tempthing = true;
-	//int d = 0;
-	while(tempthing == true) {
-	  cout << "d: " << d << endl;
-	  d++;
-	  if (d > 50) {
-	    exit(1);
-	  }
+	while(tempthing == true) {	  
 	  //if it is a  ( it goes straight to stack
 	  if (temp == '(') {
 	    push(stackOne, stackOne, nodify);
@@ -94,16 +80,11 @@ int main() {
 	  }
 	  //if it is a ) get rid of stack to queue until ( then delte (
 	  else if (temp == ')') {
-	    cout << "not done yet" << endl;
 	    bool endless = true;
 	    int c = 0;
 	    while(endless == true) {
-	      if ((peek(stackOne, stackOne, NULL) != '(') && (c < 10) &&
+	      if ((peek(stackOne, stackOne, NULL) != '(') &&
 		  (peek(stackOne, stackOne, NULL) != ' ')) {
-		cout << "peek: " << peek(stackOne, stackOne, NULL) << endl;
-		cout << c << endl;
-		c++;
-		
 		//if it is not ( send it to queue
 		//names are a little wierd since I don't know what to
 		//call them since temp is used aready
@@ -112,7 +93,6 @@ int main() {
 		if (uniqueName != ' ') {
 		  Node* newNodeNumberQuestionMark = new Node(uniqueName);
 		  enque(queueOne, queueOne, newNodeNumberQuestionMark);
-		  cout << "109 enque:  " << uniqueName<< endl;;
 		}
 	      }
 	      else {
@@ -129,6 +109,7 @@ int main() {
 	  int precidence = 0;
 	  int myPre = 0;
 	  char pre = peek(stackOne, stackOne, NULL);
+	  //( and ) should be caught before this
 	  //if (pre == '(') {
 	  //  precidence = 4;
 	  //}
@@ -141,9 +122,9 @@ int main() {
 	  if (pre == '+' || pre == '-' ) {
 	    precidence = 1;
 	  }
-	  if (temp == '(') {
-	    myPre = 4;
-	  }
+	  //if (temp == '(') {
+	  //  myPre = 4;
+	  //}
 	  if (temp == '^') {
 	    myPre = 3;
 	  }
@@ -154,24 +135,16 @@ int main() {
 	    myPre = 1;
 	  }
 	  //if myprecidence is smaller then the thing is stack
-	  cout << "myPree:" << myPre << "  pre:" << precidence << endl;
+	  //cout << "myPree:" << myPre << "  pre:" << precidence << endl;
 	  if (myPre <= precidence) {
-	    //get move the top thing in the stack to the queue
-
+	    //move the top thing in the stack to the queue
 	    char thing = pop(stackOne, stackOne, NULL);
-	    cout << "thing: " << thing << endl;
 	    Node* newNode = new Node(thing);
-	    cout << "newNode: " << newNode << endl;
-	    enque(queueOne, queueOne, newNode);
-	    cout << "156 enque:  " << thing << endl;;
-	    cout << "enqued newnode" << endl;
-	    
+	    enque(queueOne, queueOne, newNode);   
 	  }
 	  else {
 	    //add me to stack
-	    cout << "add to stack" << endl;
 	    printLinear(stackOne);
-	    cout << "nodify" << nodify->getThing() << endl;
 	    push(stackOne, stackOne, nodify);
 	    //and we have handeled the operation
 	    tempthing = false;
@@ -222,10 +195,13 @@ int main() {
   }
   //shuntingyard is officialy done!
   //Now move the queue to a binary tree
+  //don't need prits of stack and queue
+  /*
   cout << "stack1" << endl;
   printLinear(stackOne);
   cout << "qeueue1" << endl;
   printLinear(queueOne);
+  */
 
   //to turn postfix into a binary tree
   //move the queue into a stack and anytime an operator is added it is the
@@ -244,7 +220,6 @@ int main() {
   bool time = true;
   while (time == true) {
     char b = deque(queueOne, queueOne, NULL);
-    cout << "b: " << b << endl;
     if (b != ' ') {
       //we are still in the queue
       //so check if its  a number
@@ -434,11 +409,10 @@ void printLinear (Node* current) {
   }
 }
 
-//stack
+//code for stack
 void push(Node* &head, Node* current, Node* newNode) {
-  //an exit so ^c is not needed if something goes
-  //wrong with input that is not caught in the if
-  //this should not be possible but... yeah
+  //the if below will catch an infnite loop
+  //this should not be possible but... yeah it happened in bugtesting
   //1*10^6 monkey's and inf time = shake spear
   if (current == newNode) {
     cout << "There was an unexped error, ";
@@ -462,21 +436,6 @@ void push(Node* &head, Node* current, Node* newNode) {
       //if the next node is null make the next node me:
       current->setRight(newNode);
     }
-    //bug testing not needed (global variable definily not needed)
-    cout << current << ", " << current->getRight() << endl;
-    cout << "printstack" << endl;
-    if (global < 1) {
-      printLinear(head);
-    }
-    else {
-      cout << "noprint" << endl;
-    }
-    //if (global > -1) {
-    //exit(1);
-    //}
-    global++;
-
-    //end of not needed
   }
   else {
     //recursion to go though the list
@@ -505,14 +464,13 @@ char pop(Node* &head, Node* current, Node* previous) {
     //set previous to point to NULL
     if (previous != NULL) {
       previous->setRight(NULL);
-      cout << "!!!" << endl;
     }
     else {
       //printLinear(head);
     }
 
     //delete the current node and return
-    cout << "delete current pop" << endl;
+    //cout << "delete current pop" << endl;
     delete current;
     return a;
   }
