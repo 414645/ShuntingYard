@@ -88,9 +88,10 @@ int main() {
 	  if (temp == ')') {
 	    cout << "not done yet" << endl;
 	    bool endless = true;
+	    int c = 0;
 	    while(endless == true) {
-	      int c = 0;
-	      if (peek(stackOne, stackOne, NULL) != '(' && c < 10) {
+	      if ((peek(stackOne, stackOne, NULL) != '(') && (c < 10) &&
+		  (peek(stackOne, stackOne, NULL) != ' ')) {
 		cout << "peek: " << peek(stackOne, stackOne, NULL) << endl;
 		cout << c << endl;
 		c++;
@@ -102,8 +103,11 @@ int main() {
 		//names are a little wierd since I don't know what to
 		//call them since temp is used aready
 		char uniqueName = pop(stackOne, stackOne, NULL);
-		Node* newNodeNumberQuestionMark = new Node(uniqueName);
-		enque(queueOne, queueOne, newNodeNumberQuestionMark);
+		//if we got a ' ' since we hit end of stack don't send it
+		if (uniqueName != ' ') {
+		  Node* newNodeNumberQuestionMark = new Node(uniqueName);
+		  enque(queueOne, queueOne, newNodeNumberQuestionMark);
+		}
 	      }
 	      else {
 		//get rid of ( and exit while
