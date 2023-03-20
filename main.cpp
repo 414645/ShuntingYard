@@ -11,10 +11,6 @@ using namespace std;
 //printLiner goes though a linked list and cout (right side)
 void printLinear (Node* current);
 
-//used for testing since this was coded using the 1 million monkeys stratgy
-//delete if have free time to clean up couts
-int global = 0;
-
 //Stack (lifo) is built with the idea if it works it works (right path)
 void push(Node* &head, Node* current,  Node* newNode);
 char pop(Node* &head, Node* current, Node* previous);
@@ -65,7 +61,7 @@ int main() {
 	//cout << "number -> queue" << endl;
 	//it goes straight to the queue
         enque(queueOne, queueOne, nodify);
-	printLinear(queueOne);
+	//printLinear(queueOne);
       }
       //if its an operation
       else {
@@ -144,7 +140,7 @@ int main() {
 	  }
 	  else {
 	    //add me to stack
-	    printLinear(stackOne);
+	    //printLinear(stackOne);
 	    push(stackOne, stackOne, nodify);
 	    //and we have handeled the operation
 	    tempthing = false;
@@ -247,10 +243,10 @@ int main() {
 	Node* op = new Node(b);
         op->setRight(bNode);
 	op->setLeft(aNode);
-	cout << "operator: " << op->getThing() << endl;
+	//cout << "operator: " << op->getThing() << endl;
 
-	//ifs since the tree doens not necairly have two children
-	//viulisation that exists since I was returnin node not thing
+	//ifs since the tree doens not necesairly have two children
+	//viulisation that exists since I was returning node not thing
 	/*
 	if (op->getRight() != NULL) {
 	  cout << "right: " << op->getRight()->getThing() << endl;
@@ -294,23 +290,27 @@ int main() {
   if (input == 1) {
     //infix
     cout << "Your final expression is: " << endl;
+    cout << endl;
     infix(tree);
     cout << endl;
   }
   else if (input == 2) {
     //prefix
     cout << "Your final expression is: " << endl;
+    cout << endl;
     prefix(tree);
     cout << endl;
   }
   else if (input == 3) {
     //postfix
     cout << "Your final expression is: " << endl;
+    cout << endl;
     postfix(tree);
     cout << endl;
   }
 
   //we are done with this nightmare of a program
+  cout << endl;
   cout << "Thank you CalConT for having a infix to postfix converter" << endl;
   cout << "https://calcont.in/Conversion/infix_to_postfix" << endl;
 
@@ -553,35 +553,3 @@ Node* popNode(Node* &head, Node* current, Node* previous) {
     return popNode(head, current->getRight(), current);
   }
 }
-
-/*
-Node* popNode(Node* &head, Node* current, Node* previous) {
-  //if it is empty return ' '
-  if (head == NULL) {
-    //NULL not ' '
-    return NULL;
-  }
-  else if (head->getRight() == NULL) {
-    //no needto save head = current at this point
-    head = NULL;
-    return current;
-  }
-  //if we are at the end of the list
-  else if (current->getRight() == NULL) {
-    //exact code as above -cout
-    if (previous != NULL) {
-      previous->setRight(NULL);
-    }
-    else {
-      //printLinear(head);
-    }
-
-    //return insead of deleting
-    return current;
-  }
-  else {
-    //go though the list since we are not at the end
-    return popNode(head, current->getRight(), current);
-  }
-}
-*/
